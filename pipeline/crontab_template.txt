@@ -1,0 +1,6 @@
+# ------------------------------------------------------------------------------
+# 5111 Student Lab: Cron Orchestration Engine Template
+# Note: Cron environments are sparse. Paths must explicitly be absolute paths.
+# ------------------------------------------------------------------------------
+# Run every minute to scan the drop folder for new input files
+* * * * * /usr/bin/bash /absolute/path/to/pipeline/scripts/orchestrator.sh

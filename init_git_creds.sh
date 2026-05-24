@@ -1,7 +1,5 @@
-!#/usr/bin/bash
+#!/usr/bin/bash
 
-USER=<your github email>
-NAME=<your github user name>
 
 git config --global --list
 
