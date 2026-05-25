@@ -29,6 +29,7 @@ def main():
         print(f"    DISPLAY_NAME = '{row['name'].title()}' ")
         print(f"    EMAIL = '{row['email']}' ")
         print(f"    MUST_CHANGE_PASSWORD = TRUE;")
+        print(f"    DEFAULT_ROLE = 'DS5111_STUDENT_ROLE';")
         
         # 2. Assign them to the shared student execution role
         print(f"GRANT ROLE ds5111_student_role TO USER {username};")
