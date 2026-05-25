@@ -17,3 +17,14 @@ extract_ids:
 	. env/bin/activate && cat youtube_ids | \
 		python -u pipeline/scripts/clean_ids.py | \
 		python -u pipeline/scripts/fetch_transcripts.py
+
+
+to_sf:
+	. env/bin/activate && cat youtube_ids | \
+                python3 -u pipeline/scripts/clean_ids.py | \
+                python3 -u pipeline/scripts/fetch_transcripts.py | \
+                python3 -u pipeline/scripts/load_snowflake.py
+
+
+test_to_sf:
+	. env/bin/activate && cat mock_gemini_output.jsonl | python3 -u pipeline/scripts/load_snowflake.py
