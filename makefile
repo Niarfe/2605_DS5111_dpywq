@@ -15,5 +15,5 @@ clean_ids:
 
 extract_ids:
 	. env/bin/activate && cat youtube_ids | \
-		python pipeline/scripts/clean_ids.py | \
-		python pipeline/scripts/fetch_transcripts.py
+		python -u pipeline/scripts/clean_ids.py | \
+		python -u pipeline/scripts/fetch_transcripts.py

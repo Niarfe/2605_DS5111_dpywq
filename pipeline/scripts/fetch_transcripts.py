@@ -4,6 +4,10 @@ import json
 import logging
 from google import genai
 from google.genai import types
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.proxies import WebshareProxyConfig
+
+ytt_api = YouTubeTranscriptApi()
 
 logging.basicConfig(
     filename='pipeline/logs/pipeline_audit.log',
@@ -13,7 +17,29 @@ logging.basicConfig(
 
 def main():
     logging.info("Pipeline Step 2 (Gemini Cleaner) started.")
+   
+    # Check for core environment configurations
+    api_key = os.getenv("GEMINI_API_KEY")
+    proxy_user = os.getenv("WEBSHARE_USER")
+    proxy_pass = os.getenv("WEBSHARE_PASSWORD")
     
+    if not api_key:
+        logging.critical("GEMINI_API_KEY environment variable not set. Exiting.")
+        sys.exit(1)
+
+    # Instantiate the API client with residential rotating routing
+    if proxy_user and proxy_pass:
+        logging.info("Proxy credentials detected. Routing traffic via Webshare Residential network.")
+        ytt_api = YouTubeTranscriptApi(
+            proxy_config=WebshareProxyConfig(
+                proxy_username=proxy_user,
+                proxy_password=proxy_pass
+            )
+        )
+    else:
+        logging.warning("No proxy credentials found. Running with direct raw local IP routing.")
+        ytt_api = YouTubeTranscriptApi()
+
     # Ensure client can authenticate
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
@@ -39,9 +65,20 @@ def main():
         video_id = line.strip()
         logging.info(f"Processing transcript extraction for video: {video_id}")
         
-        # Simulated placeholder text (simulate fetching YouTube text before LLM call)
-        raw_text = f"[00:05] Context for {video_id}. Read 'Clean Code'. [01:15] Learn PyTorch."
-        
+        try:
+            # 2. Call the modern .fetch() instance method
+            fetched_transcript = ytt_api.fetch(video_id)
+            
+            # 3. Use the built-in serializer to grab the raw data array
+            transcript_list = fetched_transcript.to_raw_data()
+            
+            # 4. Stitch the segments into a single raw text string for Gemini
+            raw_text = " ".join([f"[{item['start']}] {item['text']}" for item in transcript_list])
+            
+        except Exception as e:
+            logging.error(f"Failed to fetch YouTube transcript for {video_id}: {str(e)}")
+            continue
+
         prompt = f"""
         You are an elite data engineer. Clean this transcript text for video_id '{video_id}'.
         1. Strip all timestamps and duration codes.
