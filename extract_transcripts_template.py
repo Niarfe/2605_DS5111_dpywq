@@ -3,11 +3,13 @@ import sys
 import os
 import json
 import logging
-from dotenv import load_dotenv
+# TODO: Add the import statement so we have access to the load_dotenv function from dotenv
+<your code here>
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import WebshareProxyConfig
 
-load_dotenv()
+# TODO: use the loaded dotenv function to conditionally load the credentials from .env
+<your code here>
 
 # Direct logging statements to a shared audit log asset
 logging.basicConfig(
@@ -25,11 +27,10 @@ def main():
     
     if proxy_user and proxy_pass:
         logging.info("Proxy credentials detected. Routing traffic via Webshare Residential network.")
+        # TODO:  Use YouTubeTranscriptApi with a keyword argument proxy_config.
+        #    Use WebshareProxyConfig to create the proxy using the username and password
         ytt_api = YouTubeTranscriptApi(
-            proxy_config=WebshareProxyConfig(
-                proxy_username=proxy_user,
-                proxy_password=proxy_pass
-            )
+                <your code here>
         )
     else:
         logging.warning("No proxy credentials found. Running with direct raw local IP routing.")
@@ -52,12 +53,11 @@ def main():
             raw_text = " ".join([f"[{item['start']}] {item['text']}" for item in transcript_list])
             
             # Pack into a simple intermediary JSON object and emit to stdout
-            payload = {
-                "video_id": video_id,
-                "raw_text": raw_text
-            }
-            sys.stdout.write(f"{json.dumps(payload)}\n")
-            sys.stdout.flush()
+            # TODO: Create a variable called payload
+            #    Store a dict object with video_id and raw_text as keys, with the appropriate values
+            #    Then use sys.stdout to write that to console
+            #    Finally, flush the stdout 
+            <your code here>
             
         except Exception as e:
             logging.error(f"Failed to fetch YouTube transcript for {video_id}: {str(e)}")
