@@ -10,6 +10,13 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    # Define the execution matrix
+    strategy:
+      matrix:
+        python-version: ['3.12', '3.13']
+      # Optional: set fail-fast to false so one failing version doesn't cancel the other
+      fail-fast: false
+      
     steps:
     - name: Check out repository code
       uses: actions/checkout@v4
