@@ -24,6 +24,7 @@ jobs:
         make update
 
     - name: Lint codebase with Pylint
+      run: |
         make lint
 
     - name: Execute automated test suite with Pytest
