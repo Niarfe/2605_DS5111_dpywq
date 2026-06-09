@@ -1,0 +1,11 @@
+pandas
+numpy
+pytest
+# ------------------------------------------------------------------------------
+# DS5111 - 2026 Core Pipeline Dependencies
+# ------------------------------------------------------------------------------
+
+google-genai>=2.6.0
+youtube-transcript-api>=1.2.4
+snowflake-connector-python>=4.5.0
+python-dotenv
