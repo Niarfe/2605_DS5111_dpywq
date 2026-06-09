@@ -28,3 +28,6 @@ to_sf:
 
 test_to_sf:
 	. env/bin/activate && cat mock_gemini_output.jsonl | python3 -u pipeline/scripts/load_snowflake.py
+
+test:
+	. env/bin/activate && pytest -vvx tests
