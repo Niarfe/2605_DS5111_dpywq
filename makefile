@@ -25,6 +25,9 @@ to_sf:
                 python3 -u pipeline/scripts/fetch_transcripts.py | \
                 python3 -u pipeline/scripts/load_snowflake.py
 
+test_enrich:
+	. env/bin/activate && cat mock_transcripts.jsonl | \
+                python -u bin/enrich_transcripts.py
 
 test_to_sf:
 	. env/bin/activate && cat mock_gemini_output.jsonl | python3 -u pipeline/scripts/load_snowflake.py
