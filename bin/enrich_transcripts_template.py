@@ -26,25 +26,26 @@ def main():
     # If the token is missing, log a critical failure and terminate the system.
     # Otherwise, instantiate the official Google GenAI Client utility.
     # -------------------------------------------------------------------------
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        logging.critical("GEMINI_API_KEY environment variable not set. Exiting.")
-        sys.exit(1)
-        
-    client = genai.Client(api_key=api_key)
+    # === YOUR CODE HERE ===
+    client = None 
+    # ======================
 
     # -------------------------------------------------------------------------
     # TODO 2: Structured Output Response Schema Definition
-    # Formulate a JSON Schema layout forcing the upstream LLM engine to 
-    # emit strict data signatures. The output must parse as an OBJECT containing:
-    #   - video_id (STRING, Required)
-    #   - cleaned_text (STRING, Required)
-    #   - tech_terms (ARRAY of STRINGS)
-    #   - book_names (ARRAY of STRINGS)
-    # This matching schema guarantees seamless VARIANT parsing inside Snowflake.
+    # To prevent the LLM from returning unpredictable formats that would crash
+    # downstream applications, define a strict "Data Contract" using a JSON 
+    # Schema layout. 
+    # 
+    # Enforce a response type of "OBJECT" that guarantees the presence of:
+    #   - video_id: (STRING, Required)
+    #   - cleaned_text: (STRING, Required)
+    #   - tech_terms: (ARRAY of STRINGS)
+    #   - book_names: (ARRAY of STRINGS)
     # -------------------------------------------------------------------------
     response_schema = {
-        # INSERT SCHEMA OBJECT DEFINITION HERE
+        # === YOUR CODE HERE ===
+        
+        # ======================
     }
 
     # Stream processing framework reading line-by-line text inputs from stdin
