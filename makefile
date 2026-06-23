@@ -37,3 +37,12 @@ lint:
 
 test: lint
 	. env/bin/activate && pytest -vvx tests
+
+## LECTURE 6
+check_shows:
+	curl -s https://talkpython.fm/episodes/rss | grep "<title>" | head -n 10
+
+smoke_et_oop:
+	echo "Astral" | python bin/extract_transcripts_oop.py --source podcast
+
+
