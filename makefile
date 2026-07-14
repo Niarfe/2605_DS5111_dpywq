@@ -45,4 +45,8 @@ check_shows:
 smoke_et_oop:
 	echo "Astral" | python bin/extract_transcripts_oop.py --source podcast
 
+build_docker:
+	docker build -t efrainolivares/ds5111-pipeline:latest .
 
+test_docker:
+	cat data/youtube_ids.txt | docker run -i efrainolivares/ds5111-pipeline:latest
