@@ -1,3 +1,6 @@
+USE DATABASE DS5111_DB;
+USE SCHEMA TXT1SR;
+
 SELECT 
     raw_data:video_id::STRING       AS video_id,
     raw_data:metrics.views::INT     AS view_count,
