@@ -1,6 +1,6 @@
 -- Force the Git runner session to locate your data assets
 USE DATABASE DS5111_DB;
-USE SCHEMA TXT1SRW;
+USE SCHEMA TXT1SR;
 USE ROLE DS5111_STUDENT_ROLE;
 
 SELECT 
